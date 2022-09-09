@@ -3,7 +3,7 @@ from loja import db
 from datetime import datetime
 
 
-class Addproduto(db.Model):
+class Produto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     price = db.Column(db.Numeric(10,2), nullable=False)
@@ -19,10 +19,10 @@ class Addproduto(db.Model):
     categoria_id = db.Column(db.Integer, db.ForeignKey('categoria.id'),nullable=False)
     categoria = db.relationship('Categoria', backref=db.backref('categorias', lazy=True))
 
-    image= db.Column(db.String(150), nullable=False, default='image.jpg')
+    #image= db.Column(db.String(150), nullable=True, default='image.jpg')
 
     def __repr__(self):
-        return '<Addproduto %r>' % self.name
+        return '<Produto %r>' % self.name
 
 
 

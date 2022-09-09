@@ -2,6 +2,7 @@ import os
 from flask import render_template, session, request, url_for, flash, redirect
 from .forms import LoginFormulario, RegistrationForm
 from loja import app, db, bcrypt
+from loja.produtos.models import Produto, Marca, Categoria
 from .models import User
 
 @app.route('/admin')
@@ -9,7 +10,24 @@ def admin():
     if 'email' not in session:
         flash(f'Realize o login!','danger')
         return redirect(url_for('login'))
-    return render_template('admin/index.html', title = 'Pagina administrativa')
+    produtos = Produto.query.all()
+    return render_template('admin/index.html', title = 'Pagina administrativa', produtos=produtos)
+
+@app.route('/marcas')
+def marcas():
+    if 'email' not in session:
+        flash(f'Realize o login!','danger')
+        return redirect(url_for('login'))
+    marcas = Marca.query.order_by(Marca.id.desc()).all()
+    return render_template('admin/marca.html', title = 'Pagina Marcas', marcas=marcas)
+
+@app.route('/categorias')
+def categorias():
+    if 'email' not in session:
+        flash(f'Realize o login!','danger')
+        return redirect(url_for('login'))
+    categorias = Categoria.query.order_by(Categoria.id.desc()).all()
+    return render_template('admin/marca.html', title = 'Pagina Categoria', categorias=categorias)
 
 @app.route('/registrar', methods=['GET', 'POST'])
 def registrar():

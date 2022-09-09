@@ -13,8 +13,8 @@ app.config['SECRET_KEY'] = 'mysecretkey'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
-app.config['UPLOAD_FOLDER'] = os.path.join(basedir,'static/images')
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+#app.config['UPLOAD_FOLDER'] = os.path.join(basedir,'static/images')
+#ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 '''
 flask_uploads

@@ -1,0 +1,12 @@
+                <!--
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ render_field(form.image, class="form-control")}}
+                        </div>
+                    </div>
+                </div>-->
+
+                <td><!--<img src="{{url_for('static',filename='images/'+produto.image)}}" width="150" height="80">--></td>
+
+                <th>Foto</th>
