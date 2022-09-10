@@ -5,6 +5,9 @@ from loja import app, db, bcrypt
 from loja.produtos.models import Produto, Marca, Categoria
 from .models import User
 
+
+
+
 @app.route('/admin')
 def admin():
     if 'email' not in session:

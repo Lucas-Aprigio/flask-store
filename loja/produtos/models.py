@@ -19,7 +19,7 @@ class Produto(db.Model):
     categoria_id = db.Column(db.Integer, db.ForeignKey('categoria.id'),nullable=False)
     categoria = db.relationship('Categoria', backref=db.backref('categorias', lazy=True))
 
-    #image= db.Column(db.String(150), nullable=True, default='image.jpg')
+    image= db.Column(db.String(150), nullable=True, default='image.jpg')
 
     def __repr__(self):
         return '<Produto %r>' % self.name

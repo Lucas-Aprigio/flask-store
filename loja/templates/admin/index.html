@@ -26,15 +26,10 @@
                 Dropdown
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="{{url_for('addproduto')}}">Adicionar produtos</a>
+                <a class="dropdown-item" href="{{url_for('addcat')}}">Adicionar categoria</a>
+                <a class="dropdown-item" href="{{url_for('addmarca')}}">Adicionar marcas</a>
               </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -54,7 +49,7 @@
             <th>Marca</th>
             <th>Imagem</th>
             <th>Editar</th>
-            <th>Deletar</th>
+            <th>Remover</th>
         </thead>
 
         <tbody>
@@ -67,9 +62,38 @@
                 <td>{{produto.discount}}</td>
                 <td>{{produto.marca.name}}</td>
                 <td>Image</td> 
-                <td><a href="{{url_for('updateproduto', id=produto.id)}}" class="btn btn-success btn-sm"btn>Editar</a></td>
-                <td>Deletar</td>
+                <td><a href="{{url_for('updateproduto', id=produto.id)}}" class="btn btn-primary btn-sm"btn>Editar</a></td>
+                <td>
+                  <form action="{{url_for('deleteproduto', id= produto.id)}}" method="POST">
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal{{produto.id}}">Remover</button>
+                  </form>
+                </td>
             </tr>
+           
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{produto.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{produto.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-danger">Deseja realmente remover este produto? {{produto.name}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">Cancelar</button>
+        <form action="{{url_for('deleteproduto', id= produto.id)}}" method="POST">
+          <button type="submit" class="btn btn-danger">Remover</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
             {% endfor %}
         </tbody>
 
