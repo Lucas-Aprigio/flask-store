@@ -10,3 +10,23 @@
                 <td><!--<img src="{{url_for('static',filename='images/'+produto.image)}}" width="150" height="80">--></td>
 
                 <th>Foto</th>
+
+
+
+<!--
+                    {% set weight = produto.weight.split(',') %}
+                    <label for="weight"> Peso: </label>
+                    <select name="weight" id="weight">
+                        {% for weight in weight %}
+                        {% set wei = weight.split(':') %}
+                        <option value="{{wei[0]}}">{{wei[0]|capitalize}}</option>
+                        {% endfor %}
+                    </select>
+                    -->
+
+                    <!--{% if produto.discount > 0 %}
+                    <td>{{produto.discount}}</td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                    -->

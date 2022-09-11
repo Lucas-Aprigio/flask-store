@@ -1,48 +1,9 @@
 {% extends "layouts.html" %}
 
 {% block content %}
-<div class="container">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">DevFruit</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            
-            <li class="nav-item">
-            <a class="nav-link" href="/">Todos produtos</a>
-            </li>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Categorias
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% for categoria in categorias %}
-                <a class="dropdown-item" href="{{url_for('get_categoria', id=categoria.id)}}">{{categoria.name}}</a>
-                {% endfor %}
-            </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Marcas 
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% for marca in marcas %}
-            <a class="dropdown-item" href="{{url_for('get_marca', id=marca.id)}}">{{marca.name}}</a>
-            {% endfor %}
-          </div>
 
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
-  </nav>
-</div>
+{% include "navbar.html" %}
+
 <div class="container">
     <div class="row">
         {% if marca %}
@@ -55,11 +16,15 @@
                     <h5 style="text-shadow: 1px 1px 2px rgb(32, 27, 27); color: rgb(23, 85, 8); transform: rotate(-5deg); position: absolute; top: 45%; left: 25%; font-weight: 600;" >{{marca.discount}}% de desconto</h5>
                     {% endif %}
                     <h4 class="text-center">{{marca.name}}</h4>
-                    <h4 class="text-center">Preço: R${{marca.price}}</h4>
+                    <p class="text-center">Preço: R${{marca.price}}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="float-left btn btn-sm btn-warning" >Detalhes Produto</a>
-                    <a href="#" class="float-right btn btn-sm btn-success" >Adicionar Carrinho</a>
+                    <a href="{{url_for('pagina_unica', id=marca.id)}}" class="btn btn-float-left btn btn-sm btn-warning" >Detalhes</a>
+                    <form action="{{url_for('AddCart')}}" method="POST">
+                        <input type="hidden" name="produto_id" value="{{marca.id}}">
+                        <button type="submit" class="btn btn-sm btn-success float-right">Comprar</button>
+                        <input type="hidden" name="quantity" id="" value="1">       
+                    </form>
                 </div>
             </div>
         </div>
@@ -69,6 +34,7 @@
     <div class="row">
         <div class="col text-center">
         {% if marca.has_prev %}
+        {% if marca.total > 9 %}
         <a href="{{url_for('get_marca',id=get_m.id ,pagina=get_cat_prod.prev_num)}}"class="btn btn-outline-primary btn-sm mt-3">Anterior</a>
         {%endif %}
 
@@ -84,6 +50,7 @@
         ...
         {%endif %}
         {% endfor %}
+        {%endif %}
         {% if marca.has_next %}
         <a href="{{url_for('get_marca', id=get_m.id ,pagina=get_cat_prod.next_num)}}"class="btn btn-outline-primary btn-sm mt-3">Próxima</a>
         {%endif %}
@@ -102,11 +69,15 @@
                     <h5 style="text-shadow: 1px 1px 2px rgb(32, 27, 27); color: rgb(23, 85, 8); transform: rotate(-5deg); position: absolute; top: 45%; left: 25%; font-weight: 600;" >{{get_cat.discount}}% de desconto</h5>
                     {% endif %}
                     <h4 class="text-center">{{get_cat.name}}</h4>
-                    <h4 class="text-center">Preço: R${{get_cat.price}}</h4>
+                    <p class="text-center">Preço: R${{get_cat.price}}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="float-left btn btn-sm btn-warning" >Detalhes Produto</a>
-                    <a href="#" class="float-right btn btn-sm btn-success" >Adicionar Carrinho</a>
+                    <a href="{{url_for('pagina_unica', id=get_cat.id)}}" class="float-left btn btn-sm btn-warning" >Detalhes</a>
+                    <form action="{{url_for('AddCart')}}" method="POST">
+                        <input type="hidden" name="produto_id" value="{{get_cat.id}}">
+                        <button type="submit" class="btn btn-sm btn-success float-right">Comprar</button>
+                        <input type="hidden" name="quantity" id="" value="1">       
+                    </form>
                 </div>
             </div>
         </div>
@@ -118,7 +89,7 @@
         {% if get_cat_prod.has_prev %}
         <a href="{{url_for('get_categoria',id=get_cat.id ,pagina=get_cat_prod.prev_num)}}"class="btn btn-outline-primary btn-sm mt-3">Anterior</a>
         {%endif %}
-
+        {% if get_cat_prod.total > 9 %}
         {% for page_num in get_cat_prod.iter_pages() %}
         {% if page_num %}
 
@@ -131,6 +102,7 @@
         ...
         {%endif %}
         {% endfor %}
+        {%endif %}
         {% if get_cat_prod.has_next %}
         <a href="{{url_for('get_categoria', id=get_cat.id ,pagina=get_cat_prod.next_num)}}"class="btn btn-outline-primary btn-sm mt-3">Próxima</a>
         {%endif %}
@@ -148,11 +120,17 @@
                     <h5 style="text-shadow: 1px 1px 2px rgb(32, 27, 27); color: rgb(23, 85, 8); transform: rotate(-5deg); position: absolute; top: 45%; left: 25%; font-weight: 600;" >{{produto.discount}}% de desconto</h5>
                     {% endif %}
                     <h4 class="text-center">{{produto.name}}</h4>
-                    <h4 class="text-center">Preço: R${{produto.price}}</h4>
+                    <p class="text-center">Preço: R${{produto.price}}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="float-left  btn btn-sm btn-warning" >Detalhes Produto</a>
-                    <a href="#" class="float-right btn btn-sm btn-success" >Adicionar Carrinho</a>
+                    <a href="{{url_for('pagina_unica', id=produto.id)}}" class="float-left  btn btn-sm btn-warning" >Detalhes</a>
+
+                    <form action="{{url_for('AddCart')}}" method="POST">
+                        <input type="hidden" name="produto_id" value="{{produto.id}}">
+                        <button type="submit" class="btn btn-sm btn-success float-right">Comprar</button>
+                        <input type="hidden" name="quantity" id="" value="1" min="1" max="{{produto.stock}}">       
+                    </form>
+                    
                 </div>
             </div>
         </div>
@@ -161,9 +139,10 @@
     <div class="row">
         <div class="col text-center">
         {% if produtos.has_prev %}
+        
         <a href="{{url_for('home', pagina=produtos.prev_num)}}"class="btn btn-outline-primary btn-sm mt-3">Anterior</a>
         {%endif %}
-
+        {% if produtos.total > 9 %}  
         {% for page_num in produtos.iter_pages() %}
         {% if page_num %}
 
@@ -176,6 +155,7 @@
         ...
         {%endif %}
         {% endfor %}
+        {%endif %}
         {% if produtos.has_next %}
         <a href="{{url_for('home', pagina=produtos.next_num)}}"class="btn btn-outline-primary btn-sm mt-3">Próxima</a>
         {%endif %}

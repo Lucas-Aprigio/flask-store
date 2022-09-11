@@ -8,33 +8,50 @@ import secrets, os
 from datetime import datetime
   
 
+def marcas():
+    marcas = marcas = Marca.query.join(Produto, (Marca.id == Produto.marca_id)).all()
+    return marcas
+
+def categorias():
+    categorias = Categoria.query.join(Produto, (Categoria.id == Produto.categoria_id)).all()
+    return categorias
 
 @app.route('/')
 def home():
     pagina = request.args.get('pagina',1,type=int)
-    produtos = Produto.query.filter(Produto.stock > 0).paginate(page=pagina,per_page=9)
-    marcas = Marca.query.join(Produto, (Marca.id == Produto.marca_id)).all()
-    categorias = Categoria.query.join(Produto, (Categoria.id == Produto.categoria_id)).all()
-    return render_template('produtos/index.html', produtos=produtos, marcas=marcas, categorias=categorias)
+    produtos = Produto.query.filter(Produto.stock > 0).order_by(Produto.id.desc()).paginate(page=pagina,per_page=9)   
+    return render_template('produtos/index.html', produtos=produtos, marcas=marcas(), categorias=categorias())
 
 @app.route('/marca/<int:id>')
 def get_marca(id):
     get_m = Marca.query.filter_by(id=id).first_or_404()
     pagina = request.args.get('pagina',1,type=int)
 
-    marcas = Marca.query.join(Produto, (Marca.id == Produto.marca_id)).all()
+  
     marca = Produto.query.filter_by(marca=get_m).paginate(page=pagina,per_page=9)
-    categorias = Categoria.query.join(Produto, (Categoria.id == Produto.categoria_id)).all()
-    return render_template('produtos/index.html',marca=marca, marcas=marcas, categorias=categorias, get_m=get_m)
+
+    return render_template('produtos/index.html',marca=marca, marcas=marcas(), categorias=categorias(), get_m=get_m)
+
+
+
+
+@app.route('/produto/<int:id>')
+def pagina_unica(id):
+    produto = Produto.query.get_or_404(id)
+    return render_template('produtos/pagina_unica.html',produto=produto, marcas=marcas(), categorias=categorias())
+
+
+
+
+
 
 @app.route('/categoria/<int:id>')
 def get_categoria(id):
     pagina = request.args.get('pagina',1,type=int)
     get_cat = Categoria.query.filter_by(id=id).first_or_404()
     get_cat_prod = Produto.query.filter_by(categoria= get_cat).paginate(page=pagina,per_page=9)
-    marcas = Marca.query.join(Produto, (Marca.id == Produto.marca_id)).all()
-    categorias = Categoria.query.join(Produto, (Categoria.id == Produto.categoria_id)).all()
-    return render_template('produtos/index.html', get_cat_prod=get_cat_prod, categorias=categorias, marcas=marcas, get_cat=get_cat)
+
+    return render_template('produtos/index.html', get_cat_prod=get_cat_prod, categorias=categorias(), marcas=marcas(), get_cat=get_cat)
 
 
 @app.route('/addmarca', methods=['GET', 'POST'])
