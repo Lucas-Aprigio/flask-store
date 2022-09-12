@@ -44,14 +44,16 @@
                 </tr>
                 {% endfor %}
                 <tr>
-                    <td><a href="/">Ir para o pagamento</a></td>
-                    <td colspan="3">Imposto:R${{imposto}}</td>
-                    <td colspan="5">Valor Pagar:R${{valorpagar}}</td>
+                    
+                    <td >Imposto:R${{imposto}}</td>
+                    <td colspan="9"><b>Valor Pagar:R${{valorpagar}}</b></td>
+                    
                              
                 </tr>   
             </tbody> 
             <tr></tr>  
         </table>
+        <td ><a href="{{url_for('pedido')}}" class="btn btn-success btn-sm">Ir para o pagamento</a></td>
         <tr><a href="{{url_for('limparCarrinho')}}" class="btn btn-warning btn-sm float-right">Esvaziar carrinho</a></tr>
     </div>
   </div>

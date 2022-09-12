@@ -21,15 +21,20 @@ def AddCart():
         produto_id = request.form.get('produto_id')
         quantity = request.form.get('quantity')
         weight = request.form.get('weight')
-        
+        i=1
         produto = Produto.query.filter_by(id=produto_id).first()
 
         if produto_id and quantity and request.method == "POST":
             DicItems = {produto_id: {'name':produto.name,'price':produto.price, 'discount':produto.discount, 'quantity':quantity, 'weight':produto.weight }}
             if 'LojainCarrinho' in session:
-                print(session['LojainCarrinho'])
+                
                 if produto_id in session['LojainCarrinho']:
-                    print("Este produto já existe no carrinho")
+                    for key, item in session['LojainCarrinho'].items():
+                        if int(key) == int(produto_id):
+                            session.modified= True
+                            i+=int(item['quantity'])
+                            item['quantity']=str(i)
+
                 else:
                     session['LojainCarrinho'] = M_Dicionarios(session['LojainCarrinho'],DicItems)
                     return redirect(request.referrer)

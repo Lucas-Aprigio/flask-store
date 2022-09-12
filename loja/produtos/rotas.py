@@ -22,6 +22,19 @@ def home():
     produtos = Produto.query.filter(Produto.stock > 0).order_by(Produto.id.desc()).paginate(page=pagina,per_page=9)   
     return render_template('produtos/index.html', produtos=produtos, marcas=marcas(), categorias=categorias())
 
+
+@app.route('/search',methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        form = request.form
+        search_value= form['search_string']
+        search="%{0}%".format(search_value)
+        produtos = Produto.query.filter(Produto.name.like(search)).all()
+        return render_template('produtos/pesquisar.html', produtos=produtos, marcas=marcas(), categorias=categorias())
+    else:
+        return redirect('/')
+
+
 @app.route('/marca/<int:id>')
 def get_marca(id):
     get_m = Marca.query.filter_by(id=id).first_or_404()
