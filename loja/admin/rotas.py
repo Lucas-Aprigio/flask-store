@@ -58,3 +58,9 @@ def login():
             flash('E-mail ou senha incorretos. Por favor, tente novamente','danger')
     return render_template('admin/login.html', form=form, title='Pagina Login')
   
+
+@app.route('/admin/logout')
+def adminLogout():
+    session.pop('email', None)
+    return redirect(url_for('home'))
+  

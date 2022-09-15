@@ -23,19 +23,24 @@
                     <form action="{{url_for('AddCart')}}" method="POST">
                         <input type="hidden" name="produto_id" value="{{marca.id}}">
                         <button type="submit" class="btn btn-sm btn-success float-down mt-1">Adicionar ao carrinho</button>
-                        <input type="hidden" name="quantity" id="" value="1">       
+                        <input type="hidden" name="quantity" id="" value="1">     
                     </form>
+                    
                 </div>
+                
             </div>
+            
         </div>
         {% endfor %}
+        
     </div>
+    
 
     <div class="row">
         <div class="col text-center">
         {% if marca.has_prev %}
-        {% if marca.total > 9 %}
-        <a href="{{url_for('get_marca',id=get_m.id ,pagina=get_cat_prod.prev_num)}}"class="btn btn-outline-primary btn-sm mt-3">Anterior</a>
+        {% if marca.total > 8 %}
+        <a href="{{url_for('get_marca',id=get_m.id ,pagina=marca.prev_num)}}"class="btn btn-outline-primary btn-sm mt-3">Anterior</a>
         {%endif %}
 
         {% for page_num in marca.iter_pages() %}
@@ -52,7 +57,7 @@
         {% endfor %}
         {%endif %}
         {% if marca.has_next %}
-        <a href="{{url_for('get_marca', id=get_m.id ,pagina=get_cat_prod.next_num)}}"class="btn btn-outline-primary btn-sm mt-3">Próxima</a>
+        <a href="{{url_for('get_marca', id=get_m.id ,pagina=marca.next_num)}}"class="btn btn-outline-primary btn-sm mt-3">Próxima</a>
         {%endif %}
         </div>
     </div>
@@ -89,7 +94,7 @@
         {% if get_cat_prod.has_prev %}
         <a href="{{url_for('get_categoria',id=get_cat.id ,pagina=get_cat_prod.prev_num)}}"class="btn btn-outline-primary btn-sm mt-3">Anterior</a>
         {%endif %}
-        {% if get_cat_prod.total > 9 %}
+        {% if get_cat_prod.total > 8 %}
         {% for page_num in get_cat_prod.iter_pages() %}
         {% if page_num %}
 
@@ -142,7 +147,7 @@
         
         <a href="{{url_for('home', pagina=produtos.prev_num)}}"class="btn btn-outline-primary btn-sm mt-3">Anterior</a>
         {%endif %}
-        {% if produtos.total > 9 %}  
+        {% if produtos.total > 8 %}  
         {% for page_num in produtos.iter_pages() %}
         {% if page_num %}
 

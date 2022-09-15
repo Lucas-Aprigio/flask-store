@@ -50,8 +50,7 @@ def AddCart():
 
 @app.route('/carrinho')
 def getCart():
-    if 'LojainCarrinho' not in session or len(session['LojainCarrinho'])<=0:
-        print(session['LojainCarrinho'])
+    if  not ('LojainCarrinho' in session) or (len(session['LojainCarrinho'])<=0):
         return redirect(url_for('home'))
     subtotal = 0
     valorpagar = 0
