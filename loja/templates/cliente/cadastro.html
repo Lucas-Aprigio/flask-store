@@ -2,14 +2,17 @@
 
 {% block content %}
 
+{% include "navbar.html" %}
+
 {% from "_formhelpers.html" import render_field %}
 
-<div class="container  mt-2">
-    <div class="row">
-        <div class="col-md-8">
-            <h1 class="bg-light text-center">Faça seu cadastro</h1>
-        </div>  
-    </div>
+<div class="container" style="
+color: green; align-items: center; position: relative; top: 15; left: 180px;">
+    
+        
+            <h1 class="text" style="font-style: italic; text-align: left;">Faça seu cadastro</h1>
+         
+    
     <form method="POST" action="{{url_for('cadastrar_cliente')}}" enctype="multipart/form-data">
         {{ form.csrf_token }}
         <div class="row">

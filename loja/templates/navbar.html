@@ -1,53 +1,53 @@
 <div class="container ">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">DevFruit</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg" style="background-color: #1C4D18">
+        <a class="navbar-brand" style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="/">DevFruit</a>
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
       
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                <a class="nav-link" href="/">Todos produtos</a>
+            <ul class="navbar-nav mr-auto" >
+                <li class="nav-item" >
+                <a class="nav-link" style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;"href="/">Todos produtos</a>
                 </li>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Categorias
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     {% for categoria in categorias %}
-                    <a class="dropdown-item" href="{{url_for('get_categoria', id=categoria.id)}}">{{categoria.name}}</a>
+                    <a class="dropdown-item" style="color: #064d1c; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="{{url_for('get_categoria', id=categoria.id)}}">{{categoria.name}}</a>
                     {% endfor %}
                 </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Marcas 
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {% for marca in marcas %}
-                <a class="dropdown-item" href="{{url_for('get_marca', id=marca.id)}}">{{marca.name}}</a>
+                <a class="dropdown-item" style="color: #064d1c; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="{{url_for('get_marca', id=marca.id)}}">{{marca.name}}</a>
                 {% endfor %}
               </div>
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for('getCart')}}" tabindex="-1">Carrinho({{session['LojainCarrinho']|length}})</a>
+                <a class="nav-link" style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="{{url_for('getCart')}}" tabindex="-1">Carrinho({{session['LojainCarrinho']|length}})</a>
             </li>
             {% if current_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="/">Meu Perfil</a>
+              <a class="nav-link"  style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;"href="/">Meu Perfil</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('clienteLogout')}}">Sair</a>
+              <a class="nav-link" style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="{{url_for('clienteLogout')}}">Sair</a>
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('cadastrar_cliente')}}">Cadastrar</a>
+              <a class="nav-link" style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="{{url_for('cadastrar_cliente')}}">Cadastrar</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('clienteLogin')}}">Entrar</a>
+              <a class="nav-link" style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="{{url_for('clienteLogin')}}">Entrar</a>
             </li>
             {% endif %}
 

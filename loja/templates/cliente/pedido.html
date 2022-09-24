@@ -55,9 +55,32 @@
                 
                 
                 <tr>  
-                    <td ><a href="#" class="btn btn-success btn-sm">Ir para o pagamento</a></td>
+                    <td >
+                        {% if pedidos.status == 'Pago' %}
+                        {% else %}
+                        <form action="{{url_for('pagamento')}}" method="POST">
+                            {% set amount = gTotal.replace('.','') %}
+                            <input type="hidden" name="amount" value="{{amount}}">
+                            <input type="hidden" name="invoice" value="{{pedidos.notafiscal}}">
+                            <script
+                            src="https://checkout.stripe.com/checkout.js"
+                            class="stripe-button"
+                            data-key="pk_test_51LlZa4EOMVNj1z1VbKeGPoHGgUhdCc4I1UmfZlpqbAyMH87eV53IMC8ckg99fljyjN7ctUXaFUxTZOtB9mj3lOK800KXcEyZW6"
+                            data-name="DevFruit"
+                            data-description="Pagamento seguro"
+                            data-amount="{{amount}}"
+                            data-currency="brl">
+                            </script>
+                        </form>
+                        {% endif %}
+                    </td>
+                    
                     <td >Imposto:R${{imposto}}</td>
+                    {% if pedidos.status == 'Pago' %}
+                    <td colspan="9"><b>Valor Pago:R${{gTotal}}</b></td>
+                    {% else %}
                     <td colspan="9"><b>Valor Pagar:R${{gTotal}}</b></td>
+                    {% endif %}
                     <td>
                         <form action="{{url_for('get_pdf', notafiscal=pedidos.notafiscal)}}" method="POST">
                            <button type="submit" class="btn btn-warning btn-sm float-right">Gerar PDF</button> 

@@ -10,7 +10,44 @@ from datetime import datetime
 from .models import Cliente, ClientePedido
 from flask_login import login_required, current_user, login_user, logout_user
 import pdfkit 
-  
+import stripe
+
+publishable_key = 'pk_test_51LlZa4EOMVNj1z1VbKeGPoHGgUhdCc4I1UmfZlpqbAyMH87eV53IMC8ckg99fljyjN7ctUXaFUxTZOtB9mj3lOK800KXcEyZW6'
+stripe.api_key = 'sk_test_51LlZa4EOMVNj1z1VDHMVLbhk3FiS0cWaH0qYa15T3bbC4t6In7pdNmMuPCy7AHhxeFk3QxckhUIyce14hP91cvOF00aOZjJp8B'
+
+
+
+@app.route('/pagamento', methods=['POST'])
+@login_required
+def pagamento():
+    notafiscal = request.form.get('invoice')
+    amount = request.form.get('amount')
+
+
+    customer = stripe.Customer.create(
+    email=request.form['stripeEmail'],
+    source=request.form['stripeToken'],
+    )
+
+    charge = stripe.Charge.create(
+    customer=customer.id,
+    description='DevFruit',
+    amount=amount,
+    currency='brl',
+    )
+    cliente_pedido = ClientePedido.query.filter_by(cliente_id=current_user.id, notafiscal=notafiscal).order_by(ClientePedido.id.desc()).first()
+    cliente_pedido.status='Pago'
+    db.session.commit()
+    return redirect(url_for('obrigado'))
+
+
+
+@app.route('/obrigado')
+def obrigado():
+    return render_template('cliente/obrigado.html')
+
+
+
 @app.route('/cliente/cadastrar',methods=['GET', 'POST'])
 def cadastrar_cliente():
     form= ClienteForm()
@@ -42,6 +79,12 @@ def clienteLogout():
     logout_user()
     return redirect(url_for('home'))
 
+def atualizarCarrinho():
+    for _key, produto in session['LojainCarrinho'].items():
+        session.modified = True
+        del produto['image']
+    return atualizarCarrinho
+
 
 @app.route('/pedido')
 @login_required
@@ -49,6 +92,7 @@ def pedido():
     if current_user.is_authenticated:
         cliente_id = current_user.id
         notafiscal = secrets.token_hex(5)
+
         try:
             p_order=ClientePedido(notafiscal=notafiscal, cliente_id=cliente_id, pedido=session['LojainCarrinho'])  
             db.session.add(p_order)
