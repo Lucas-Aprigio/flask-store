@@ -1,6 +1,8 @@
-<div class="container ">
-    <nav class="navbar navbar-expand-lg" style="background-color: #1C4D18">
-        <a class="navbar-brand" style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="/">DevFruit</a>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <nav class="navbar navbar-expand-lg" style="background-color: #1C4D18; justify-content: space-between;">
+        <a class="navbar-brand" style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="/">  &#129365;</i>DevFruit</a>
         <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -47,7 +49,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="{{url_for('clienteLogin')}}">Entrar</a>
+              <a class="nav-link" style="color: #fef5da; text-decoration-line: none;font-family: 'Hepta Slab', Helvetica, Arial;" href="{{url_for('clienteLogin')}}"><i class="fa fa-fw fa-user"></i>Entrar</a>
             </li>
             {% endif %}
 
@@ -55,8 +57,7 @@
           </ul>
           <form class="form-inline my-2 my-lg-0" method="POST">
             <input class="form-control mr-sm-2" type="text" placeholder="Pesquisar produtos" autofocus="autofocus" name="search_string">
-            <input class="btn btn-outline-success my-2 my-sm-0" type="submit" formaction="/search" value="Pesquisar"></input>
+            <input class="btn btn-outline-success my-2 my-sm-0" type="submit" formaction="/search" value=""></input>
           </form>
         </div>
       </nav>
-    </div>
