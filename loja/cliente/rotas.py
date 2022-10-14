@@ -12,8 +12,8 @@ from flask_login import login_required, current_user, login_user, logout_user
 import pdfkit 
 import stripe
 
-publishable_key = 'pk_test_51LlZa4EOMVNj1z1VbKeGPoHGgUhdCc4I1UmfZlpqbAyMH87eV53IMC8ckg99fljyjN7ctUXaFUxTZOtB9mj3lOK800KXcEyZW6'
-stripe.api_key = 'sk_test_51LlZa4EOMVNj1z1VDHMVLbhk3FiS0cWaH0qYa15T3bbC4t6In7pdNmMuPCy7AHhxeFk3QxckhUIyce14hP91cvOF00aOZjJp8B'
+publishable_key = ''
+stripe.api_key = ''
 
 
 
