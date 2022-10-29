@@ -12,27 +12,27 @@ from .models import User
 def admin():
     if 'email' not in session:
         flash(f'Realize o login!','danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
     produtos = Produto.query.all()
     return render_template('admin/index.html', title = 'Pagina administrativa', produtos=produtos)
 
-@app.route('/marcas')
+@app.route('/admin/marcas')
 def marcas():
     if 'email' not in session:
         flash(f'Realize o login!','danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
     marcas = Marca.query.order_by(Marca.id.desc()).all()
     return render_template('admin/marca.html', title = 'Pagina Marcas', marcas=marcas)
 
-@app.route('/categorias')
+@app.route('/admin/categorias')
 def categorias():
     if 'email' not in session:
         flash(f'Realize o login!','danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
     categorias = Categoria.query.order_by(Categoria.id.desc()).all()
     return render_template('admin/marca.html', title = 'Pagina Categoria', categorias=categorias)
 
-@app.route('/registrar', methods=['GET', 'POST'])
+@app.route('/admin/registrar', methods=['GET', 'POST'])
 def registrar():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -41,12 +41,12 @@ def registrar():
         db.session.add(user)
         db.session.commit()
         flash(f'Olá, {form.name.data}. Sua conta foi criada com sucesso!','success')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
     return render_template('admin/registrar.html', form=form, title="Pagina de registros")
 
 
-@app.route('/login',methods=['GET','POST'])
-def login():
+@app.route('/admin/login',methods=['GET','POST'])
+def adminLogin():
     form=LoginFormulario(request.form)
     if request.method == 'POST'and form.validate():
         user= User.query.filter_by(email=form.email.data).first()

@@ -45,7 +45,7 @@
                         <td></td>
                         {% endif %}
                         {% set subtotal = produto.quantity|int * produto.price|float %}
-                        <td>R${{"%0.2f"|format((subTotal|float)-discount|float)}}</td>
+                        <td>R${{"%0.2f"|format((subtotal|float)-discount|float)}}</td>
                     </tr> 
 
                     {% endfor %}
@@ -65,7 +65,7 @@
                             <script
                             src="https://checkout.stripe.com/checkout.js"
                             class="stripe-button"
-                            data-key="pk_test_51LlZa4EOMVNj1z1VbKeGPoHGgUhdCc4I1UmfZlpqbAyMH87eV53IMC8ckg99fljyjN7ctUXaFUxTZOtB9mj3lOK800KXcEyZW6"
+                            data-key="pk_test_51LsvnJD5yIkwXHsgu1JYySHMRU3OrDG9sC0uOi4RZCnfO7Xq68gA0hGthWe49wSMetLkXOmuCK3lsvZSCz8oUxbI0029VolQoA"
                             data-name="DevFruit"
                             data-description="Pagamento seguro"
                             data-amount="{{amount}}"
@@ -93,6 +93,4 @@
     </div>
   </div>
 </div>
-
-
 {% endblock content %}

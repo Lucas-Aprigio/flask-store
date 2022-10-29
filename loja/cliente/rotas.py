@@ -12,8 +12,8 @@ from flask_login import login_required, current_user, login_user, logout_user
 import pdfkit 
 import stripe
 
-publishable_key = 'pk_test_51LlZa4EOMVNj1z1VbKeGPoHGgUhdCc4I1UmfZlpqbAyMH87eV53IMC8ckg99fljyjN7ctUXaFUxTZOtB9mj3lOK800KXcEyZW6'
-stripe.api_key = 'sk_test_51LlZa4EOMVNj1z1VDHMVLbhk3FiS0cWaH0qYa15T3bbC4t6In7pdNmMuPCy7AHhxeFk3QxckhUIyce14hP91cvOF00aOZjJp8B'
+publishable_key = 'pk_test_51LsvnJD5yIkwXHsgu1JYySHMRU3OrDG9sC0uOi4RZCnfO7Xq68gA0hGthWe49wSMetLkXOmuCK3lsvZSCz8oUxbI0029VolQoA'
+stripe.api_key = 'sk_test_51LsvnJD5yIkwXHsg5x6v4M4Zj04cAUQ2wrWLFBiL8IylsVpbl61hlIeNvEWn9Elg79by9rrBI30U31zA7ZTk1ayW00SUI5zQz3'
 
 
 
@@ -57,7 +57,7 @@ def cadastrar_cliente():
         db.session.add(cadastrar)
         db.session.commit()
         flash(f'Obrigado por se cadastrar,{form.name.data}! ','success')
-        return redirect(url_for('login'))
+        return redirect(url_for('clienteLogin'))
     return render_template('cliente/cadastro.html',form=form)
 
 @app.route('/cliente/login',methods=['GET', 'POST'])

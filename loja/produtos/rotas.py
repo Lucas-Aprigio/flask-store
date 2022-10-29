@@ -64,11 +64,11 @@ def get_categoria(id):
     return render_template('produtos/index.html', get_cat_prod=get_cat_prod, categorias=categorias(), marcas=marcas(), get_cat=get_cat)
 
 
-@app.route('/addmarca', methods=['GET', 'POST'])
+@app.route('/admin/addmarca', methods=['GET', 'POST'])
 def addmarca():
     if 'email' not in session:
         flash(f'Realize o login!','danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
     if request.method == "POST":
         getmarca = request.form.get('marca')
         marca = Marca(name=getmarca)
@@ -78,11 +78,11 @@ def addmarca():
         return redirect(url_for('addmarca'))
     return render_template('/produtos/addmarca.html',marcas='marcas')
 
-@app.route('/updatemarca/<int:id>', methods=['GET', 'POST'])
+@app.route('/admin/updatemarca/<int:id>', methods=['GET', 'POST'])
 def updatemarca(id):
     if 'email' not in session:
         flash(f'Realize o login!','danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
     updatemarca=Marca.query.get_or_404(id)
     marca = request.form.get('marca')
     if request.method == 'POST':
@@ -97,7 +97,7 @@ def updatemarca(id):
 def deletemarca(id):
     if 'email' not in session:
         flash(f'Realize o login!','danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
 
     marca=Marca.query.get_or_404(id)
     if request.method == 'POST':
@@ -108,11 +108,11 @@ def deletemarca(id):
     flash(f'A marca {marca.name} não foi deletada', 'warning')
     return redirect(url_for('admin'))
 
-@app.route('/updatecat/<int:id>', methods=['GET', 'POST'])
+@app.route('/admin/updatecat/<int:id>', methods=['GET', 'POST'])
 def updatecat(id):
     if 'email' not in session:
         flash(f'Realize o login!','danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
     updatecat=Categoria.query.get_or_404(id)
     categoria = request.form.get('categoria')
     if request.method == 'POST':
@@ -123,11 +123,11 @@ def updatecat(id):
 
     return render_template('/produtos/updatemarca.html',title='Atualizar Categoria', updatecat=updatecat)
 
-@app.route('/deletecategoria/<int:id>', methods=['POST'])
+@app.route('/admin/deletecategoria/<int:id>', methods=['POST'])
 def deletecategoria(id):
     if 'email' not in session:
         flash(f'Realize o login!','danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
 
     categoria=Categoria.query.get_or_404(id)
     if request.method == 'POST':
@@ -138,11 +138,11 @@ def deletecategoria(id):
     flash(f'A categoria {categoria.name} não foi deletada','warning')
     return redirect(url_for('admin'))
 
-@app.route('/addcat', methods=['GET', 'POST'])
+@app.route('/admin/addcat', methods=['GET', 'POST'])
 def addcat():
     if 'email' not in session:
         flash(f'Realize o login!','danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
 
     if request.method == "POST":
         getmarca = request.form.get('categoria')
@@ -153,11 +153,11 @@ def addcat():
         return redirect(url_for('addcat'))
     return render_template('/produtos/addmarca.html',categoria='categoria')
 
-@app.route('/addproduto', methods=['GET', 'POST'])
+@app.route('/admin/addproduto', methods=['GET', 'POST'])
 def addproduto():
     if 'email' not in session:
         flash(f'Realize o login!','danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
 
     marcas = Marca.query.all()
     categorias = Categoria.query.all()
@@ -183,11 +183,11 @@ def addproduto():
     
     return render_template('/produtos/addproduto.html',title='Cadastrar Produtos', form=form, marcas=marcas, categorias=categorias)
 
-@app.route('/updateproduto/<int:id>', methods=['GET', 'POST'])
+@app.route('/admin/updateproduto/<int:id>', methods=['GET', 'POST'])
 def updateproduto(id):
     if 'email' not in session:
         flash(f'Realize o login!','danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
     
     marcas = Marca.query.all()
     categorias = Categoria.query.all()
@@ -231,11 +231,11 @@ def updateproduto(id):
     return render_template('/produtos/updateproduto.html',title='Atualizar Produtos', form=form, marcas=marcas, categorias=categorias, produto=produto)
 
 
-@app.route('/deleteproduto/<int:id>', methods=['POST'])
+@app.route('/admin/deleteproduto/<int:id>', methods=['POST'])
 def deleteproduto(id):
     if 'email' not in session:
         flash(f'Realize o login!','danger')
-        return redirect(url_for('login'))
+        return redirect(url_for('adminLogin'))
 
     produto=Produto.query.get_or_404(id)
     if request.method == 'POST':
