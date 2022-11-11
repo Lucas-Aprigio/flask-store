@@ -12,9 +12,20 @@ from flask_login import login_required, current_user, login_user, logout_user
 import pdfkit 
 import stripe
 
+<<<<<<< HEAD
 
 publishable_key = 'pk_test_51LsvnJD5yIkwXHsgu1JYySHMRU3OrDG9sC0uOi4RZCnfO7Xq68gA0hGthWe49wSMetLkXOmuCK3lsvZSCz8oUxbI0029VolQoA'
 stripe.api_key = 'sk_test_51LsvnJD5yIkwXHsg5x6v4M4Zj04cAUQ2wrWLFBiL8IylsVpbl61hlIeNvEWn9Elg79by9rrBI30U31zA7ZTk1ayW00SUI5zQz3'
+=======
+<<<<<<< HEAD
+publishable_key = ''
+stripe.api_key = ''
+=======
+publishable_key = ''
+stripe.api_key = ''
+>>>>>>> 12b7e053aadb85fe1fcb07bcbedc90383a61d399
+
+>>>>>>> aca295311d7f8413723759f781141ad7a28a839d
 
 
 @app.route('/pagamento', methods=['POST'])
