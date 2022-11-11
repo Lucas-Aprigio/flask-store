@@ -1,6 +1,6 @@
 from loja import db 
 
-class User(db.Model):
+class Admin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=False, nullable=False)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -9,6 +9,6 @@ class User(db.Model):
     profile = db.Column(db.String(180), unique=False, nullable=False, default='profile.jpg')
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<Admin %r>' % self.username
 
 db.create_all()

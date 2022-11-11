@@ -7,25 +7,21 @@ from loja.produtos.models import Produto, Marca, Categoria
 from werkzeug.utils import secure_filename
 import secrets, os
 from datetime import datetime
-from .models import Cliente, ClientePedido
+from .models import Cliente, Pedido
 from flask_login import login_required, current_user, login_user, logout_user
-import pdfkit 
 import stripe
 
-<<<<<<< HEAD
+import pdfkit 
+path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+configpdf = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+# pdfkit.from_url("http://google.com", "out.pdf", configuration=config)
+
+
+
+
 
 publishable_key = 'pk_test_51LsvnJD5yIkwXHsgu1JYySHMRU3OrDG9sC0uOi4RZCnfO7Xq68gA0hGthWe49wSMetLkXOmuCK3lsvZSCz8oUxbI0029VolQoA'
 stripe.api_key = 'sk_test_51LsvnJD5yIkwXHsg5x6v4M4Zj04cAUQ2wrWLFBiL8IylsVpbl61hlIeNvEWn9Elg79by9rrBI30U31zA7ZTk1ayW00SUI5zQz3'
-=======
-<<<<<<< HEAD
-publishable_key = ''
-stripe.api_key = ''
-=======
-publishable_key = ''
-stripe.api_key = ''
->>>>>>> 12b7e053aadb85fe1fcb07bcbedc90383a61d399
-
->>>>>>> aca295311d7f8413723759f781141ad7a28a839d
 
 
 @app.route('/pagamento', methods=['POST'])
@@ -46,7 +42,7 @@ def pagamento():
     amount=amount,
     currency='brl',
     )
-    cliente_pedido = ClientePedido.query.filter_by(cliente_id=current_user.id, notafiscal=notafiscal).order_by(ClientePedido.id.desc()).first()
+    cliente_pedido = Pedido.query.filter_by(cliente_id=current_user.id, notafiscal=notafiscal).order_by(Pedido.id.desc()).first()
     cliente_pedido.status='Pago'
     db.session.commit()
     return redirect(url_for('obrigado'))
@@ -105,7 +101,7 @@ def pedido():
         notafiscal = secrets.token_hex(5)
 
         try:
-            p_order=ClientePedido(notafiscal=notafiscal, cliente_id=cliente_id, pedido=session['LojainCarrinho'])  
+            p_order=Pedido(notafiscal=notafiscal, cliente_id=cliente_id, pedido=session['LojainCarrinho'])  
             db.session.add(p_order)
             db.session.commit()
             session.pop('LojainCarrinho')
@@ -125,7 +121,7 @@ def pedidos(notafiscal):
         subTotal = 0
         cliente_id = current_user.id
         cliente = Cliente.query.filter_by(id=cliente_id).first()
-        pedidos = ClientePedido.query.filter_by(cliente_id=cliente_id, notafiscal=notafiscal).order_by(ClientePedido.id.desc()).first()
+        pedidos = Pedido.query.filter_by(cliente_id=cliente_id, notafiscal=notafiscal).order_by(Pedido.id.desc()).first()
 
         for _key, produto in pedidos.pedido.items():
             desconto = (produto['discount']/100) * float(produto['price'])
@@ -148,7 +144,7 @@ def get_pdf(notafiscal):
         if request.method == 'POST':
 
             cliente = Cliente.query.filter_by(id=cliente_id).first()
-            pedidos = ClientePedido.query.filter_by(cliente_id=cliente_id, notafiscal=notafiscal).order_by(ClientePedido.id.desc()).first()
+            pedidos = Pedido.query.filter_by(cliente_id=cliente_id, notafiscal=notafiscal).order_by(Pedido.id.desc()).first()
 
             for _key, produto in pedidos.pedido.items():
                 desconto = (produto['discount']/100) * float(produto['price'])
@@ -162,7 +158,7 @@ def get_pdf(notafiscal):
             rendered=render_template('cliente/pdf.html', notafiscal=notafiscal, imposto=imposto, subTotal=subTotal, gTotal=gTotal, cliente=cliente, pedidos=pedidos)
             
             
-            pdf = pdfkit.from_string(rendered, False)
+            pdf = pdfkit.from_string(rendered, False, configuration=configpdf)
             response = make_response(pdf)
             response.headers['content-Type']='application/pdf'
             response.headers['content-Disposition']='inline:filename='+ notafiscal+'. pdf'

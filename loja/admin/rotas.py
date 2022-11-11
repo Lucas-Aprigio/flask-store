@@ -3,7 +3,7 @@ from flask import render_template, session, request, url_for, flash, redirect
 from .forms import LoginFormulario, RegistrationForm
 from loja import app, db, bcrypt
 from loja.produtos.models import Produto, Marca, Categoria
-from .models import User
+from .models import Admin
 
 
 
@@ -37,7 +37,7 @@ def registrar():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
         hash_password = bcrypt.generate_password_hash(form.password.data)
-        user = User(name=form.name.data, username=form.username.data, email=form.email.data, password=hash_password)
+        user = Admin(name=form.name.data, username=form.username.data, email=form.email.data, password=hash_password)
         db.session.add(user)
         db.session.commit()
         flash(f'Olá, {form.name.data}. Sua conta foi criada com sucesso!','success')
@@ -49,7 +49,7 @@ def registrar():
 def adminLogin():
     form=LoginFormulario(request.form)
     if request.method == 'POST'and form.validate():
-        user= User.query.filter_by(email=form.email.data).first()
+        user= Admin.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             session['email'] = form.email.data
             flash(f'Olá, {form.email.data}. Seja bem-vindo!','success')

@@ -42,7 +42,7 @@ class Cliente(db.Model, UserMixin):
         return '<Cliente %r>' % self.name
 
 
-class ClientePedido(db.Model):
+class Pedido(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     notafiscal= db.Column(db.String(20), unique=True, nullable=False)
     status= db.Column(db.String(20), default='pendente', nullable = False)
@@ -51,7 +51,7 @@ class ClientePedido(db.Model):
     pedido= db.Column(JsonEcodedDict)
 
     def __repr__(self):
-        return '<ClientePedido %r>' % self.notafiscal
+        return '<Pedido %r>' % self.notafiscal
 
 
 db.create_all()
