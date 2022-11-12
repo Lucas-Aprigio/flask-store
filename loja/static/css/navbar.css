@@ -1,0 +1,28 @@
+nav{
+    background-color: #1C4D18; 
+    justify-content: space-between;
+}
+
+#brand{
+    color: #fef5da; 
+    text-decoration-line: none;
+    font-family: 'Brush Script MT', cursive;
+}
+#navlink{
+    color: #fef5dabc; 
+    text-decoration-line: none;
+    font-family: 'Hepta Slab', Helvetica, Arial;
+}
+#navlink:hover{
+    color: #ffffff; 
+}
+
+#navbarDropdown{
+    color: #fef5dabc; 
+    text-decoration-line: none;
+    font-family: 'Hepta Slab', Helvetica, Arial;
+}
+
+#navbarDropdown:hover{
+    color: #ffffff; 
+}
