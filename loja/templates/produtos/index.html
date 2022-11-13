@@ -12,7 +12,7 @@
         <div class="col">
             <div class="card">
                 <img class="img-index"
-                src="{{url_for('static',filename='images/'+ marca.name+'.jpg')}}" alt="{{marca.name}}">
+                src="{{url_for('static',filename='images/'+ marca.image)}}" alt="{{marca.name}}">
                 <div class="card-body">
                     {% if marca.discount > 0 %}
                     <h5>{{marca.discount}}% de desconto</h5>

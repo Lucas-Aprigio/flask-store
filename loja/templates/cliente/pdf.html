@@ -26,11 +26,17 @@
         <table class="table table-sm">
             <thead>
                 <th>Código</th>
-                <th>Nome</th>   
+                <th></th>
+                <th>Nome</th>
+                <th></th>   
                 <th>Peso</th>
+                <th></th>
                 <th>Preço</th>
+                <th></th>
                 <th>Quantidade</th>
+                <th></th>
                 <th>Desconto</th>
+                <th></th>
                 <th>Subtotal</th>
 
 
@@ -40,17 +46,25 @@
                 {% set discount = "%0.2f" | format((produto.discount/100)* produto.price|float)%}
                 <tr>
                     <td>{{loop.index}}</td>
+                    <td></td>
                     <td>{{produto.name}}</td>
+                    <td></td>
+                    
                         <td>{{produto.weight}}kg</td>
+                        <td></td>
                         <td>R$ {{produto.price}}</td>
+                        <td></td>
                         <td>{{produto.quantity}}</td>
+                        <td></td>
                         {% if produto.discount > 0 %}
                         <td>{{produto.discount}}%&nbsp;=R${{discount}}</td>
+                        <td></td>
                         {% else %}
                         <td></td>
                         {% endif %}
+                        
                         {% set subtotal = produto.quantity|int * produto.price|float %}
-                        <td>R${{"%0.2f"|format((subTotal|float)-discount|float)}}</td>
+                        <td>R${{"%0.2f"|format((subtotal|float)-discount|float)}}</td>
                     </tr> 
 
                     {% endfor %}
@@ -61,7 +75,11 @@
                 
                 <tr>  
                     <td >Imposto:R${{imposto}}</td>
+                    {% if pedidos.status =="Pendente" %}
                     <td colspan="9"><b>Valor Pagar:R${{gTotal}}</b></td>
+                    {% else %}
+                    <td colspan="9"><b>Valor pago:R${{gTotal}}</b></td>
+                    {% endif %}
                 </tr> 
             </table>  
             

@@ -1,7 +1,7 @@
 import os
 from flask import redirect, render_template, url_for, flash, request, abort, session, current_app
 from .forms import Addprodutos
-from loja import db, app, basedir
+from loja import db, app, photos
 from .models import Marca, Categoria, Produto
 from werkzeug.utils import secure_filename
 import secrets, os
@@ -173,9 +173,9 @@ def addproduto():
         marca= request.form.get('marca')
         categoria= request.form.get('categoria')
 
-        #image=photos.save(request.files.get('image'), name=secrets.token_hex(10) + ".")
+        image = photos.save(request.files.get('image'), name=secrets.token_hex(10) + ".")
 
-        addpro = Produto(name=name,price=price,discount=discount,stock=stock,weight=weight,description=description,marca_id=marca,categoria_id=categoria)
+        addpro = Produto(name=name,price=price,discount=discount,stock=stock,weight=weight,description=description,marca_id=marca,categoria_id=categoria,image=image)
         db.session.add(addpro) 
         flash(f'O produto {name} foi adicionado com sucesso')
         db.session.commit()

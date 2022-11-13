@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from flask_uploads import IMAGES, UploadSet, configure_uploads
+from flask_uploads import IMAGES, UploadSet, configure_uploads, patch_request_class
 import os
 from flask_login import LoginManager
 from flask_migrate import Migrate
@@ -33,6 +33,7 @@ login_manager.login_message= u"Realize o login"
 app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(basedir,'static/images')
 photos = UploadSet('photos',IMAGES)
 configure_uploads(app, photos)
+patch_request_class(app)
 
 from loja.admin import rotas
 from loja.produtos import rotas
