@@ -175,7 +175,7 @@ def feedback():
         feedback = Feedback(name=form.name.data, email=form.email.data, feedback=form.feedback.data)
         db.session.add(feedback)
         db.session.commit()
-        flash('Thank you for your feedback.','success')
+        flash(f'Obrigado pelo seu feedback, {form.name.data}!','success')
         return redirect(url_for('home'))
     return render_template('cliente/feedback.html', form=form)
 
