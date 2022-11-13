@@ -53,5 +53,16 @@ class Pedido(db.Model):
     def __repr__(self):
         return '<Pedido %r>' % self.notafiscal
 
+class Feedback(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=False)
+    email = db.Column(db.String(100), unique=False)
+    feedback = db.Column(db.String(200), unique=False)
+
+    def __repr__(self):
+        return '<Feedback %r>' % self.email
+
+
+
 
 db.create_all()

@@ -2,6 +2,7 @@ from wtforms import Form, SubmitField, IntegerField, FloatField,StringField,Text
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from flask_wtf import FlaskForm
 from .models import Cliente
+from wtforms.validators import DataRequired, Email
 
 
 class ClienteForm(FlaskForm):
@@ -31,3 +32,10 @@ class ClienteForm(FlaskForm):
 class ClienteLoginForm(FlaskForm):
     email= StringField('Email: ', [validators.DataRequired()])
     password= PasswordField('Senha: ', [validators.DataRequired()])
+
+
+class FeedbackForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    feedback = TextAreaField('Feedback', validators=[DataRequired()])
+    submit = SubmitField('Submit Feedback')

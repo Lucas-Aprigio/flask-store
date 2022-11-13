@@ -1,13 +1,13 @@
 import os
 from flask import redirect, render_template, url_for, flash, request, abort, session, current_app, make_response
-from .forms import ClienteForm, ClienteLoginForm
+from .forms import ClienteForm, ClienteLoginForm, FeedbackForm
 from flask_bcrypt import Bcrypt
 from loja import db, app, basedir, bcrypt, login_manager
 from loja.produtos.models import Produto, Marca, Categoria
 from werkzeug.utils import secure_filename
 import secrets, os
 from datetime import datetime
-from .models import Cliente, Pedido
+from .models import Cliente, Pedido, Feedback
 from flask_login import login_required, current_user, login_user, logout_user
 import stripe
 
@@ -168,6 +168,16 @@ def get_pdf(notafiscal):
 
 
 
+@app.route('/feedback',methods=['GET','POST'])
+def feedback():
+    form = FeedbackForm(request.form)    
+    if form.validate_on_submit():
+        feedback = Feedback(name=form.name.data, email=form.email.data, feedback=form.feedback.data)
+        db.session.add(feedback)
+        db.session.commit()
+        flash('Thank you for your feedback.','success')
+        return redirect(url_for('home'))
+    return render_template('cliente/feedback.html', form=form)
 
 
 
