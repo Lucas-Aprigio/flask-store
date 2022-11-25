@@ -20,8 +20,8 @@ configpdf = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 
 
 
-publishable_key = 'pk_test_51LsvnJD5yIkwXHsgu1JYySHMRU3OrDG9sC0uOi4RZCnfO7Xq68gA0hGthWe49wSMetLkXOmuCK3lsvZSCz8oUxbI0029VolQoA'
-stripe.api_key = 'sk_test_51LsvnJD5yIkwXHsg5x6v4M4Zj04cAUQ2wrWLFBiL8IylsVpbl61hlIeNvEWn9Elg79by9rrBI30U31zA7ZTk1ayW00SUI5zQz3'
+publishable_key = ''
+stripe.api_key = ''
 
 
 @app.route('/pagamento', methods=['POST'])
