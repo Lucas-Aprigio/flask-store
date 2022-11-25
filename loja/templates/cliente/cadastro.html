@@ -5,36 +5,30 @@
 {% include "navbar.html" %}
 
 {% from "_formhelpers.html" import render_field %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/cadastro.css')}}">
 
-<div class="container" style="
-color: green; position: relative; left: 180px; margin-bottom: 45px; margin-top: 45px;">
-    
-        
-            <h1 class="text" style="position: relative; left: 190px;">Faça seu cadastro</h1>
-         
-    
+<div class="container" >
+    <h1 class="text" >Faça seu cadastro</h1>
     <form method="POST" action="{{url_for('cadastrar_cliente')}}" enctype="multipart/form-data">
         {{ form.csrf_token }}
-        <div class="row" style="margin-top: 30px;">
-            <div class="col-md-4">  
+        <div class="cadastro">
+            <div class="col">
                 {{ render_field(form.name, class="form-control") }}
-                {{ render_field(form.cpf, class="form-control") }}
                 {{ render_field(form.contact, class="form-control") }}
-                {{ render_field(form.email, class="form-control") }}
-                {{ render_field(form.password, class="form-control") }}
-                {{ render_field(form.confirm, class="form-control") }}
-                <!--{{ form.profile()}}-->
-            </div>
-                <div class="col-md-4">
-                {{ render_field(form.state, class="form-control") }}
-                {{ render_field(form.city, class="form-control") }}
                 {{ render_field(form.address, class="form-control") }}
                 {{ render_field(form.cep, class="form-control") }}
-                {{ form.submit(class="btn btn-sm btn-success float-right") }}
-
-                </div>
-                <div class="col-md-2"></div>
+                {{ render_field(form.password, class="form-control") }} 
             </div>
+            <div class="col">
+                {{ render_field(form.cpf, class="form-control") }}
+                {{ render_field(form.email, class="form-control") }}
+                {{ render_field(form.city, class="form-control") }}
+                {{ render_field(form.state, class="form-control") }}
+                {{ render_field(form.confirm, class="form-control") }}
+            </div>
+        </div>
+        <div class="botaoconfirmar">
+            {{ form.submit(class="btn btn-sm btn-success") }}
         </div>
     </form>
 </div>

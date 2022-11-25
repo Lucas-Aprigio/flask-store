@@ -2,12 +2,12 @@
 
 {% block content %}
 {% include "navbar.html" %}
-
+<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
 
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6" id="marca_image">
-            <img src="{{url_for('static',filename='images/'+ produto.name+'.jpg')}}" alt="{{produto.name}}" height="400">
+            <img src="{{url_for('static',filename='images/'+ produto.image)}}" alt="{{produto.name}}" height="400">
         </div>
 
 
@@ -16,7 +16,7 @@
                 <br>
                 <p>Preço: R${{produto.price}}</p>
                 {% if produto.discount >0 %}
-                <b>Desconto: R${{produto.discount}}</b>
+                <b>Desconto:{{produto.discount}}% = R${{(produto.price|float * (produto.discount/100|float)) }} </b>
                 {% endif %}
                 <br>
                 <hr>

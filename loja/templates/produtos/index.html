@@ -4,7 +4,7 @@
 
 {% include "navbar.html" %}
 {% include '_messages.html' %}
-
+<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
 <div class="container">
     <div class="row">
         {% if marca %}
@@ -12,7 +12,7 @@
         <div class="col">
             <div class="card">
                 <img class="img-index"
-                src="{{url_for('static',filename='images/'+ marca.image)}}" alt="{{marca.name}}">
+                src="{{url_for('static',filename='images/'+marca.image)}}" alt="{{marca.name}}">
                 <div class="card-body">
                     {% if marca.discount > 0 %}
                     <h5>{{marca.discount}}% de desconto</h5>
@@ -70,7 +70,7 @@
         
         <div class="col">
             <div class="card">
-                <img class="img-index" src="{{url_for('static',filename='images/'+ get_cat.name+'.jpg')}}" alt="{{get_cat.name}}" >
+                <img class="img-index" src="{{url_for('static',filename='images/'+ get_cat.image)}}" alt="{{get_cat.name}}" >
                 <div class="card-body">
                     {% if get_cat.discount > 0 %}
                     <h5>{{get_cat.discount}}% de desconto</h5>
@@ -122,7 +122,7 @@
         <div class="col" >
             <div class="card">
                 <img class="img-index" 
-                src="{{url_for('static',filename='images/'+ produto.name+'.jpg')}}" alt="{{produto.name}}">
+                src="{{url_for('static',filename='images/'+ produto.image)}}" alt="{{produto.name}}">
                 <div class="card-body">
                     {% if produto.discount > 0 %}
                     <h5>{{produto.discount}}% de desconto</h5>

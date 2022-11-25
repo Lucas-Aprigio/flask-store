@@ -2,62 +2,32 @@
 {% include "navbar.html" %}
 
 {% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/cadastro.css')}}">
 <div class="container">
-<div class="content-section">
+<div class="cadastro">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Deixe seu Feedback</legend>
+            <h1>Deixe seu feedback</h1>
+            
                 
-                <div class="form-group">
                     Nome completo:
-
-                    {% if form.name.errors %}
-                        {{ form.name(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.name.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
+  
                         {{ form.name(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-
-
-                   <div class="form-group">
+    
                     Digite seu e-mail:
 
-                    {% if form.email.errors %}
-                        {{ form.email(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.email.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
+                   
                         {{ form.email(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
 
-                <div class="form-outline">
-                    
                     Escreva seu feedback:
-                    {% if form.feedback.errors %}
-                        {{ form.feedback(class="form-control form-control-sm is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.feedback.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
+                    
                         {{ form.feedback(class="form-control form-control-sm") }}
-                    {% endif %}
+                    
+                
+            <br>
+                <div class="botaoconfirmar">
+                {{ form.submit(classs="btn btn-sm btn-success") }}
                 </div>
-            </fieldset>
-                        <div class="form-group">
-                {{ form.submit(classs="btn btn-outline-info") }}
-                </small>
             </div>
             
         </form>
